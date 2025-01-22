@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -69,11 +70,16 @@ private final BookService bookService;
     @PatchMapping("/admin/books/{id}")
     public ResponseEntity<?> updateBookDetails(@PathVariable Long id, @RequestBody Books updates) {
         try {
+            Optional<Books> book = bookService.getBookById(id);
+            if(book.isEmpty()){
+                throw new NoBookFoundException("No Book found with id: "+ id);
+            }
             Books updatedBook = bookService.updateBookDetails(id, updates);
             return ResponseEntity.ok(updatedBook);
-        } catch (NoSuchElementException e) {
+        }catch (NoBookFoundException ex){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found with id: " + id);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating book details: " + e.getMessage());
         }
     }
