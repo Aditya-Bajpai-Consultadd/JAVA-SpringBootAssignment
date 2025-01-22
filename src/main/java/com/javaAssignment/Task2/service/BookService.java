@@ -5,6 +5,7 @@ import com.javaAssignment.Task2.entity.Books;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -17,6 +18,9 @@ private final BookRepository bookRepository;
     public List<Books> getAllBooks(){
         return bookRepository.findAll();
 
+    }
+    public Optional<Books> getBookById(Long id) {
+        return bookRepository.findById(id);
     }
 public boolean doesBookExist(String title) {
         return bookRepository.findByTitle(title).isPresent();
