@@ -4,13 +4,15 @@ import com.javaAssignment.Task2.api.customException.BookAlreadyExistsException;
 import com.javaAssignment.Task2.api.customException.NoBookFoundException;
 import com.javaAssignment.Task2.entity.Books;
 import com.javaAssignment.Task2.service.BookService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -22,7 +24,15 @@ private final BookService bookService;
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
+    @GetMapping("/")
+    public String func(HttpServletRequest httpServletRequest){
+        return "Welcome to the website " + httpServletRequest.getSession().getId();
+    }
 
+    @GetMapping("/crsf-tk")
+    public CsrfToken token(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+    }
     @GetMapping("/admin/books")
     public ResponseEntity<?> getAllBooks(){
         List<Books> books = bookService.getAllBooks();

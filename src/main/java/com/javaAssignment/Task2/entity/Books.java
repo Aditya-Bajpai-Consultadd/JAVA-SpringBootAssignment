@@ -26,6 +26,9 @@ public class Books {
         this.isAvailable = isAvailable;
     }
 
+    public Books(Object o, String updatedAuthor, Object o1, boolean b) {
+    }
+
     public int getID() {
         return ID;
     }
