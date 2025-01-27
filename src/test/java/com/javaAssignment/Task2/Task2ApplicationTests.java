@@ -21,14 +21,14 @@ import static org.mockito.Mockito.when;
 class Task2ApplicationTests {
 
 	@Mock
-	private BookRepository bookRepository; // Mock the repository
+	private BookRepository bookRepository;
 
 	@InjectMocks
-	private BookService bookService; // Service being tested
+	private BookService bookService;
 
 	@Test
 	public void testUpdateBookDetails_HappyPath() {
-		// Arrange
+
 		int bookId = 1;
 		Books existingBook = new Books(bookId, "Aditya", "Aditya Bajpai", "Thriller", true);
 		Books updates = new Books(null, "Updated Author", null, false);
