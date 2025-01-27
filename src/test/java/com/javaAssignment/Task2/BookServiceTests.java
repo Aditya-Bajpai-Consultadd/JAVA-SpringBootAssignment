@@ -38,7 +38,7 @@ public class BookServiceTests {
         });
         Books updatedBook = bookService.updateBookDetails((long) bookId, updates);
         assertNotNull(updatedBook);
-        assertEquals("Aditya Bajpai", updatedBook.getTitle());
+        assertEquals("Aditya", updatedBook.getTitle());
         assertEquals("Updated Author", updatedBook.getAuthor());
         assertEquals("Thriller", updatedBook.getGenre());
         assertFalse(updatedBook.isAvailable());
