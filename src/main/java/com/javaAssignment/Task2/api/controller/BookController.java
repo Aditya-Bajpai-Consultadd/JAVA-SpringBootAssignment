@@ -20,7 +20,6 @@ public class BookController {
 
 private final BookService bookService;
 
-
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
@@ -29,10 +28,7 @@ private final BookService bookService;
         return "Welcome to the website " + httpServletRequest.getSession().getId();
     }
 
-    @GetMapping("/crsf-tk")
-    public CsrfToken token(HttpServletRequest request){
-        return (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-    }
+
     @GetMapping("/admin/books")
     public ResponseEntity<?> getAllBooks(){
         List<Books> books = bookService.getAllBooks();
@@ -69,7 +65,6 @@ private final BookService bookService;
         {
             return ResponseEntity.status(404).body("Book with ID " + id + " not found.");
         }
-
     }
     @GetMapping("/admin/books/search")
     public ResponseEntity<?> searchBooksByTitle(@RequestParam("title") String title) {

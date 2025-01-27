@@ -57,4 +57,24 @@ public class BookServiceTests {
                 () -> bookService.updateBookDetails(BookId, updates));
         verify(bookRepository, never()).save(any(Books.class));
     }
+
+
+    @Test
+    void testDeleteBookById_HappyPath() {
+
+        Long bookId = 1L;
+        when(bookRepository.existsById(bookId)).thenReturn(true);
+        boolean result = bookService.deleteBookById(bookId);
+        assertTrue(result);
+        verify(bookRepository, times(1)).deleteById(bookId);
+    }
+
+    @Test
+    void testDeleteBookById_UnhappyPath() {
+        Long bookId = 1L;
+        when(bookRepository.existsById(bookId)).thenReturn(false);
+        boolean result = bookService.deleteBookById(bookId);
+        assertFalse(result);
+        verify(bookRepository, never()).deleteById(anyLong());
+    }
 }
